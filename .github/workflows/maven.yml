@@ -58,6 +58,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
-          files: target/*.jar  # Upload the built jar to the release
+          name: keycloak-group-membership-uuid-mapper
+          files: target/keycloak-group-membership-uuid-mapper-*.jar  # Upload the built jar to the release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
