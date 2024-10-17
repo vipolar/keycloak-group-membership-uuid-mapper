@@ -5,6 +5,7 @@ import org.keycloak.models.GroupModel;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.ProtocolMapperModel;
 import org.keycloak.models.UserSessionModel;
+import org.keycloak.protocol.ProtocolMapperUtils;
 import org.keycloak.protocol.oidc.mappers.*;
 import org.keycloak.provider.ProviderConfigProperty;
 import org.keycloak.representations.IDToken;
@@ -56,6 +57,7 @@ public class GroupMembershipUUIDMapper extends AbstractOIDCProtocolMapper implem
             ClientSessionContext clientSessionCtx) {
 
         List<String> membership = userSession.getUser().getGroupsStream().map(GroupModel::getId).collect(Collectors.toList());
+        mappingModel.getConfig().put(ProtocolMapperUtils.MULTIVALUED, "true");
         OIDCAttributeMapperHelper.mapClaim(token, mappingModel, membership);
     }
 }
