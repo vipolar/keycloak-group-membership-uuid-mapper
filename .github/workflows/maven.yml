@@ -1,12 +1,11 @@
 name: Maven Build and Release
 
 on:
-  # Trigger the workflow on push to main or version tags
   push:
     branches:
       - main
     tags:
-      - 'v*.*.*'  # Triggers on tags that look like v1.0.0, v1.1.0, etc.
+      - 'v*.*.*'  # Trigger on tags like v1.0.0
 
 jobs:
   build:
@@ -41,11 +40,19 @@ jobs:
       - name: Run tests
         run: mvn test
 
-      # Step 6: Create GitHub Release (only on tags)
+      # Step 6: List target directory (debugging step)
+      - name: List target directory
+        run: ls -la target/
+
+      # Step 7: Debugging - Print GitHub Ref
+      - name: Debugging - Print GitHub Ref
+        run: echo "GitHub Ref: ${{ github.ref }}"
+
+      # Step 8: Create GitHub Release (only for tagged commits)
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
         with:
-          files: target/*.jar  # Include your built jar file
+          files: target/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
