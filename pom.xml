@@ -6,7 +6,7 @@
 
     <groupId>com.unulearner</groupId>
     <artifactId>keycloak-group-membership-uuid-mapper</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.8-SNAPSHOT</version>
 
     <name>keycloak-group-membership-uuid-mapper</name>
     <url>http://www.unulearner.com</url>
