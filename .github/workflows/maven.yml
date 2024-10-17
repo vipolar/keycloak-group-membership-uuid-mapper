@@ -40,9 +40,12 @@ jobs:
       - name: Run tests
         run: mvn test
 
-      # Step 6: List target directory (debugging step)
-      - name: List target directory
-        run: ls -la target/
+      # Step 6: Upload JAR file as an artifact
+      - name: Upload JAR file
+        uses: actions/upload-artifact@v3
+        with:
+          name: keycloak-group-membership-uuid-mapper
+          path: target/keycloak-group-membership-uuid-mapper-*.jar  # Use your appropriate pattern
 
   release:
     runs-on: ubuntu-latest
@@ -53,9 +56,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: List target directory (debugging step)
-      - name: List target directory
-        run: ls -la target/
+      # Step 2: Download the JAR file artifact
+      - name: Download JAR file artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: keycloak-group-membership-uuid-mapper
 
       # Step 3: Create GitHub Release (conditional based on a tag push)
       - name: Create GitHub Release
@@ -63,6 +68,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: keycloak-group-membership-uuid-mapper
-          files: target/keycloak-group-membership-uuid-mapper-*.jar  # Upload the built jar to the release
+          files: keycloak-group-membership-uuid-mapper-*.jar  # Use your appropriate pattern
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
