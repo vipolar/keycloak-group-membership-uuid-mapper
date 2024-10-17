@@ -1,2 +1,4 @@
-build with: mvn clean install
+build with: mvn clean install  
+
+
 goes into: /opt/keycloak/providers/
